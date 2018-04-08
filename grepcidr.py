@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import ipaddress
 import optparse
 import os
