@@ -61,18 +61,18 @@ def build_parser():
         usage="usage: %prog [options] [filename | - ..]",
         version=__version__,
         )
-    parser.add_option("-i", "--invert",
-        help="Invert IP address/range",
-        dest="invert_range",
-        action="store_true",
-        default=False,
-        )
-    parser.add_option("-v",
-        help="Show lines that do NOT match",
-        dest="invert_match",
-        action="store_true",
-        default=False,
-        )
+    #parser.add_option("-i", "--invert",
+    #    help="Invert IP address/range",
+    #    dest="invert_range",
+    #    action="store_true",
+    #    default=False,
+    #    )
+    #parser.add_option("-v",
+    #    help="Show lines that do NOT match",
+    #    dest="invert_match",
+    #    action="store_true",
+    #    default=False,
+    #    )
     parser.add_option("-x", "--strict",
         help="Only match whole lines",
         dest="whole_lines",
