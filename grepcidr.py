@@ -7,6 +7,7 @@ import sys
 __version__ = "1.0.0"
 
 STDIN_FILENAME = "-"
+EX_NOT_FOUND = 1
 
 ipv4_loose_re = re.compile(r'''
     \b
@@ -87,6 +88,12 @@ def build_parser():
     parser.add_option("-c", "--count",
         help="Show the count of matches instead of actual matches",
         dest="count",
+        action="store_true",
+        default=False,
+        )
+    parser.add_option("-q", "--quick",
+        help="Quit after the first match",
+        dest="quick",
         action="store_true",
         default=False,
         )
@@ -176,30 +183,45 @@ def main():
     if not args:
         args.append(STDIN_FILENAME) # read from stdin by default
 
-    if options.count:
+    if options.quick:
+        def report(fname, source):
+            for _ in process(options, patterns, source):
+                return True
+            return False
+    elif options.count:
         def report(fname, source):
             i = 0
             for _ in process(options, patterns, source):
                 i += 1
             print("%s:%i" % (fname, i))
+            return i > 0
     elif options.with_filename or (
             len(args) > 1 and not options.no_filename
             ):
         def report(fname, source):
+            found = False
             for s in process(options, patterns, source):
+                found = True
                 print("%s: %s" % (fname, s))
+            return found
     else:
         def report(fname, source):
+            found = False
             for s in process(options, patterns, source):
+                found = True
                 print(s)
+            return found
 
+    found = False
     for fname in args:
         if fname == STDIN_FILENAME:
-            report(fname, sys.stdin)
+            found = report(fname, sys.stdin) or found
         else:
             with open(fname) as fp:
-                report(fname, fp)
-    return os.EX_OK
+                found = report(fname, fp) or found
+        if found and options.quick:
+            break
+    return os.EX_OK if found else EX_NOT_FOUND
 
 if __name__ == "__main__":
     sys.exit(main())
