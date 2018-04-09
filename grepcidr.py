@@ -68,12 +68,12 @@ def build_parser():
     #    action="store_true",
     #    default=False,
     #    )
-    #parser.add_option("-v",
-    #    help="Show lines that do NOT match",
-    #    dest="invert_match",
-    #    action="store_true",
-    #    default=False,
-    #    )
+    parser.add_option("-v",
+        help="Show lines that do NOT match",
+        dest="invert_match",
+        action="store_true",
+        default=False,
+        )
     parser.add_option("-x", "--strict",
         help="Only match whole lines",
         dest="whole_lines",
@@ -153,12 +153,16 @@ def process(options, patterns, iterable):
             for pattern in patterns:
                 if addr in pattern:
                     keep_trying = False
-                    if options.only:
-                        yield source_text
-                    else:
-                        yield line
+                    if not options.invert_match:
+                        if options.only:
+                            yield source_text
+                        else:
+                            yield line
                     break
             if not keep_trying: break
+        else:
+            if options.invert_match:
+                yield line
 
 def main():
     parser = build_parser()
