@@ -78,3 +78,9 @@ Who was logged in  `access*.log` from some place other than
 ```
 $ grepcidr.py -v --no-filename 192.168.0.0/24 access*.log
 ```
+
+Who is in `web.log` from some place other than RFC-1918 addresses?
+
+```
+$ grepcidr.py -v -e 192.168.0.0/16 -e 10.0.0.0/8 -e 172.16.0.0/12 web.log
+```
