@@ -40,8 +40,7 @@ Output all lines in `file.txt` with an IP address matching `FD::/64`
 $ ./grepcidr.py FD::/64 file.txt
 ```
 
-Output all lines in `file.txt` that do not match the IP address
-`192.168.0.0/24`
+Output all lines in `file.txt` that do not match the network `192.168.0.0/24`
 
 ```
 $ ./grepcidr.py -v 192.168.0.0/24 file.txt
@@ -65,4 +64,10 @@ IP addresses without all the other information
 
 ```
 $ ./grepcidr.py -o 192.168.0.0/24 log.txt
+```
+
+Print `192.168.0.0/16` addresses associated with the current machine
+
+```
+$ ifconfig -a | ./grepcidr.py -o 192.168.0.0/24
 ```
