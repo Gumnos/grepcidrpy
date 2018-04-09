@@ -31,43 +31,43 @@ Options:
 Output all lines in `file.txt` with an IP address matching `192.168.0.0/24`
 
 ```
-$ ./grepcidr.py 192.168.0.0/24 file.txt
+$ grepcidr.py 192.168.0.0/24 file.txt
 ```
 
 Output all lines in `file.txt` with an IP address matching `FD::/64`
 
 ```
-$ ./grepcidr.py FD::/64 file.txt
+$ grepcidr.py FD::/64 file.txt
 ```
 
 Output all lines in `file.txt` that do not match the network `192.168.0.0/24`
 
 ```
-$ ./grepcidr.py -v 192.168.0.0/24 file.txt
+$ grepcidr.py -v 192.168.0.0/24 file.txt
 ```
 
 Quickly test if `file.txt` contains any matches on the network
 `192.168.0.0/24`
 
 ```
-$ ./grepcidr.py -q 192.168.0.0/24 file.txt && echo yep || echo nope
+$ grepcidr.py -q 192.168.0.0/24 file.txt && echo yep || echo nope
 ```
 
 Count the number of matches on the network `192.168.0.0/24` in `file.txt`
 
 ```
-$ ./grepcidr.py -c 192.168.0.0/24 file.txt
+$ grepcidr.py -c 192.168.0.0/24 file.txt
 ```
 
 Assuming `log.txt` has a number of fields per row but you only want the
 IP addresses without all the other information
 
 ```
-$ ./grepcidr.py -o 192.168.0.0/24 log.txt
+$ grepcidr.py -o 192.168.0.0/24 log.txt
 ```
 
 Print `192.168.0.0/16` addresses associated with the current machine
 
 ```
-$ ifconfig -a | ./grepcidr.py -o 192.168.0.0/24
+$ ifconfig -a | grepcidr.py -o 192.168.0.0/24
 ```
