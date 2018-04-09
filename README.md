@@ -71,3 +71,10 @@ Print `192.168.0.0/16` addresses associated with the current machine
 ```
 $ ifconfig -a | grepcidr.py -o 192.168.0.0/24
 ```
+
+Who was logged in  `access*.log` from some place other than
+`192.168.0.0/16`, don't care which file it was
+
+```
+$ grepcidr.py -v --no-filename 192.168.0.0/24 access*.log
+```
